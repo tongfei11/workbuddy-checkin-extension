@@ -4,8 +4,6 @@
 
 每日签到、任务中心领奖、猫猫旅行循环、连登兑换、补登卡，全部覆盖。**不需要令牌、不需要命令行、不需要 Node。**
 
-详细功能说明见 [docs/features.md](docs/features.md)。
-
 ## 能做什么
 
 - **每日签到**：每天定时领取（+100 积分/天），已签过自动跳过，重复运行不会多领也不会报错
@@ -80,11 +78,8 @@ workbuddy-checkin/
 │   ├── popup.*           # 弹窗：状态 / 立即签到 / 最近日志
 │   ├── options.*         # 设置：时间 / 重试 / 通知 / 日志导出
 │   └── icons/            # 16/32/48/128 图标（脚本生成）
-├── tools/
-│   └── test-extension.mjs  # 130 项逻辑测试，无需浏览器
-├── docs/features.md      # 功能介绍
-├── SKILL.md              # WorkBuddy skill 描述
-└── CHANGELOG.md
+└── tools/
+    └── test-extension.mjs  # 130 项逻辑测试，无需浏览器
 ```
 
 ## 开发与测试
@@ -105,7 +100,7 @@ node tools/test-extension.mjs    # 130 项，用假 chrome.* + 假 fetch 驱动�
 ## 致谢
 
 原始思路与命令行版本来自 [cat-xierluo](https://github.com/cat-xierluo/legal-skills)（skill v1.0.3）。
-本仓库自 v1.1.0 起转向浏览器扩展实现，v1.5.0 移除命令行路线。完整演进见 [CHANGELOG.md](CHANGELOG.md)。
+本仓库自 v1.1.0 起转向浏览器扩展实现，v1.5.0 移除命令行路线。演进过程见 git 提交记录。
 
 ## License
 
