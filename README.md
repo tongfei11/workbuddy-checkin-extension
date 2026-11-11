@@ -1,4 +1,4 @@
-# workbuddy-checkin
+# workbuddy-checkin-extension
 
 > WorkBuddy（腾讯 AI 办公工作台）每日积分自动领取 —— 一个浏览器扩展，装一次，之后每天自己领。
 
