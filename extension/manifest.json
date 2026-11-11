@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WorkBuddy 每日签到",
-  "version": "1.4.6",
+  "version": "1.5.0",
   "description": "每天定时为 WorkBuddy 自动签到，并顺带领取任务中心、猫猫旅行、连登兑换与补登卡：可配触发时间、保留日志、失败弹通知。",
   "minimum_chrome_version": "110",
   "permissions": [
