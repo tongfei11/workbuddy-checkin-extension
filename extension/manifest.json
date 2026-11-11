@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "WorkBuddy 每日签到",
+  "version": "1.4.6",
+  "description": "每天定时为 WorkBuddy 自动签到，并顺带领取任务中心、猫猫旅行、连登兑换与补登卡：可配触发时间、保留日志、失败弹通知。",
+  "minimum_chrome_version": "110",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://www.workbuddy.cn/*",
+    "https://copilot.tencent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.workbuddy.cn/*",
+        "https://copilot.tencent.com/*"
+      ],
+      "js": [
+        "page-bridge.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "WorkBuddy 每日签到",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

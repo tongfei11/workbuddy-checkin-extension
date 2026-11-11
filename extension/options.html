@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="options.css" />
+  <title>WorkBuddy 每日签到 · 设置</title>
+</head>
+<body>
+  <main>
+    <header class="top">
+      <img src="icons/icon128.png" alt="" width="40" height="40" />
+      <div>
+        <h1>WorkBuddy 每日签到</h1>
+        <p class="muted" id="stateLine">读取设置中…</p>
+      </div>
+    </header>
+
+    <form id="form">
+      <fieldset>
+        <legend>定时</legend>
+
+        <label class="switch">
+          <input type="checkbox" id="enabled" />
+          <span>启用每日自动签到</span>
+        </label>
+
+        <div class="grid">
+          <label>
+            <span>每天触发时间</span>
+            <input type="time" id="time" step="60" required />
+          </label>
+          <label>
+            <span>随机延迟 0~N 分钟</span>
+            <input type="number" id="jitterMin" min="0" max="120" step="1" />
+          </label>
+        </div>
+        <p class="hint">随机延迟用来避免整点扎堆；触发时间已过就自动排到明天。浏览器没开时，下次打开会补跑一次。</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>失败重试</legend>
+
+        <div class="grid">
+          <label>
+            <span>网络失败重试次数</span>
+            <input type="number" id="retryTimes" min="0" max="5" step="1" />
+          </label>
+          <label>
+            <span>网络失败重试间隔（分钟）</span>
+            <input type="number" id="retryGapMin" min="5" max="240" step="5" />
+          </label>
+        </div>
+
+        <div class="grid">
+          <label>
+            <span>未登录轮询次数</span>
+            <input type="number" id="authRetryTimes" min="0" max="12" step="1" />
+          </label>
+          <label>
+            <span>未登录轮询间隔（分钟）</span>
+            <input type="number" id="authRetryGapMin" min="5" max="240" step="5" />
+          </label>
+        </div>
+        <p class="hint">
+          未登录时无法自动完成（接口需要登录 Cookie），扩展会立刻弹通知，并在上述间隔里轮询：
+          你登录完网页版后，下一次轮询就会自动领掉；也可以随时点通知里的「已登录，重试」或本页「立即签到」。
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>成长体系（任务中心 / 猫猫旅行）</legend>
+
+        <label class="switch">
+          <input type="checkbox" id="growth" />
+          <span>签到后顺带处理任务中心与猫猫（推荐）</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="autoAccept" />
+          <span>自动接受「未接受」的任务（接受后才开始计进度）</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="travel" />
+          <span>猫猫：有奖励就领，在家就派它出门</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="travelFollowUp" />
+          <span>猫猫回程后自动再跑一次（按服务端倒计时，专程领奖）</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="redeem" />
+          <span>连登兑换：到 7 / 14 / 28 天就领档位奖励（补登卡来自这里）</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="makeup" />
+          <span>断登时自动用补登卡补上（保住连续天数）</span>
+        </label>
+        <p class="hint">
+          只会<b>领取</b>已完成的任务和<b>接受</b>任务，不会伪造完成状态 —— 服务端会校验，
+          该做的动作（发一次模板任务、关注公众号满 24 小时等）仍然要你自己做。
+          任务与猫猫的失败只记日志，不影响签到本身。
+          <br />补登顺序是<b>先兑换再补登</b>：补登卡只能从 7 天档兑换里拿，卡为 0 时不会去动你的地图。
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>提醒</legend>
+        <label class="switch">
+          <input type="checkbox" id="notifyOnFailure" />
+          <span>失败时弹系统通知（未登录 / 网络错误 / 业务错误）</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="notifyOnSuccess" />
+          <span>成功时也弹通知（默认关；失败后恢复成功一定会弹）</span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>接口与日志</legend>
+        <div class="grid">
+          <label>
+            <span>站点</span>
+            <select id="domain">
+              <option value="auto">自动（先 www.workbuddy.cn，再 copilot.tencent.com）</option>
+              <option value="www.workbuddy.cn">仅 www.workbuddy.cn</option>
+              <option value="copilot.tencent.com">仅 copilot.tencent.com（旧 CodeBuddy）</option>
+            </select>
+          </label>
+          <label>
+            <span>日志保留条数</span>
+            <input type="number" id="logRetain" min="50" max="2000" step="50" />
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" class="primary">保存设置</button>
+        <button type="button" id="runNow">立即签到</button>
+        <button type="button" id="openSite">打开网页版</button>
+        <span id="saveMsg" class="muted"></span>
+      </div>
+    </form>
+
+    <section class="logs">
+      <div class="logs-head">
+        <h2>运行日志</h2>
+        <div class="log-actions">
+          <button type="button" id="exportLog">导出 .log</button>
+          <button type="button" id="copyLog">复制</button>
+          <button type="button" id="clearLog" class="danger">清空</button>
+        </div>
+      </div>
+      <pre id="logView">（暂无日志）</pre>
+      <p class="hint" id="logCount"></p>
+    </section>
+
+    <section class="notes">
+      <h2>说明与限制</h2>
+      <ul>
+        <li>扩展只访问 <code>www.workbuddy.cn</code> / <code>copilot.tencent.com</code> 两个域，用你浏览器里已有的登录 Cookie 调官方签到接口，**不读取、不保存 Cookie 内容**，也不上传任何数据。</li>
+        <li>定时依赖 <code>chrome.alarms</code>：**浏览器必须处于运行状态**（可以最小化，关掉窗口但保留后台也行）。浏览器完全退出期间不会执行，重开后会补跑一次。</li>
+        <li>浏览器装扩展的「无痕/访客」窗口不共享登录态，签到请在正常窗口完成登录。</li>
+        <li>日志只记时间、端点、HTTP 状态、业务码和积分，不记录任何凭据。</li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

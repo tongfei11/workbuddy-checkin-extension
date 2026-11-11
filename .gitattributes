@@ -1,0 +1,11 @@
+# 强制 Shell / Node 脚本使用 LF：CRLF 会让 bash 报 `set: pipefail: invalid option name`
+# 与 `syntax error near unexpected token '{'`（行号被 \r 污染）。
+*.sh   text eol=lf
+*.js   text eol=lf
+*.mjs  text eol=lf
+
+# PowerShell 保持 CRLF + BOM 更稳妥（Windows PowerShell 5.1 对 LF 脚本兼容性差）
+*.ps1  text eol=crlf
+*.psm1 text eol=crlf
+*.cmd  text eol=crlf
+*.bat  text eol=crlf

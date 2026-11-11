@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>WorkBuddy 每日签到</title>
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="22" height="22" />
+    <h1>WorkBuddy 签到</h1>
+    <span id="pill" class="pill">读取中</span>
+  </header>
+
+  <section class="card">
+    <div id="headline" class="headline">—</div>
+    <div id="subline" class="subline"></div>
+    <dl class="meta">
+      <div><dt>累计</dt><dd id="streak">—</dd></div>
+      <div><dt>今日积分</dt><dd id="credit">—</dd></div>
+      <div><dt>下次运行</dt><dd id="next">—</dd></div>
+      <div><dt>上次运行</dt><dd id="last">—</dd></div>
+    </dl>
+  </section>
+
+  <div class="actions">
+    <button id="run" class="primary">立即签到</button>
+    <button id="login" class="ghost hidden">去登录网页版</button>
+  </div>
+
+  <section class="logs">
+    <div class="logs-head">
+      <span>最近日志</span>
+      <a id="openOptions" href="#">设置 / 全部日志</a>
+    </div>
+    <pre id="logList">—</pre>
+  </section>
+
+  <footer id="foot"></footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
